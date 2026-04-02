@@ -1,0 +1,56 @@
+---
+// importa os componentes que aparecem em todas as páginas
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+// props que cada página pode passar pro layout
+interface Props {
+  titulo_pagina?: string;
+  pagina_ativa?: "inicio" | "projetos";
+}
+
+const { titulo_pagina = "UDESC MAKER", pagina_ativa = "inicio" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{titulo_pagina}</title>
+
+    <!-- fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    <!-- navbar aparece em toda página -->
+    <Navbar pagina_ativa={pagina_ativa} />
+
+    <!-- aqui entra o conteúdo específico de cada página -->
+    <slot />
+
+    <!-- footer aparece em toda página -->
+    <Footer />
+
+  </body>
+</html>
+
+<style is:global>
+  /* reset básico — zera margin e padding de tudo */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+  }
+</style>
