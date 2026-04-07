@@ -9,7 +9,7 @@ categoria: ["Robótica", "Arduino", "Automação"]
 thumbnail: "/braco-robotico.jpg"
 tags: ["robo", "braco robotico", "servo motor", "joystick", "controle"]
 recursos:
-  - nome: "Código Fonte do Arduino"
+  - nome: "Código Fonte"
     tipo: "codigo"
     url: "https://github.com/HenriqueKnaul/udesc-maker/blob/main/src/content/projects/braco-robotico.md?plain=1"
   - nome: "Moldes 3D das Peças"
