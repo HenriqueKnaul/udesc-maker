@@ -38,7 +38,6 @@ const dificuldade_label: Record<string, string> = {
 ---
 
 {variante === 'grade' ? (
-  <!-- ══ VARIANTE GRADE (página de busca) ══ -->
   <a href={`/projects/${slug}`} class="card card_grade">
     <div class="grade_imagem_wrap">
       <img src={imagem} alt={titulo} class="card_imagem" loading="lazy" />
@@ -65,7 +64,6 @@ const dificuldade_label: Record<string, string> = {
     </div>
   </a>
 ) : (
-  <!-- ══ VARIANTE LISTA (página inicial) ══ -->
   <div class="card card_lista">
     <div class="lista_imagem_wrap">
       <img src={imagem} alt={titulo} class="card_imagem" loading="lazy" />
@@ -95,7 +93,6 @@ const dificuldade_label: Record<string, string> = {
 )}
 
 <style>
-  /* ── base ── */
   .card {
     background: #fff;
     border: 1px solid #e5e7eb;
@@ -120,7 +117,6 @@ const dificuldade_label: Record<string, string> = {
   }
   .card:hover .card_imagem { transform: scale(1.04); }
 
-  /* ── grade (vertical) ── */
   .card_grade {
     display: flex;
     flex-direction: column;
@@ -143,7 +139,6 @@ const dificuldade_label: Record<string, string> = {
     font-weight: 600;
   }
 
-  /* ── lista (horizontal) ── */
   .card_lista {
     display: flex;
     flex-direction: row;
@@ -156,7 +151,6 @@ const dificuldade_label: Record<string, string> = {
     background: #f3f4f6;
   }
   .lista_resumo {
-    /* sem clamp na home — mostra o texto completo */
     display: block !important;
     -webkit-line-clamp: unset !important;
     overflow: visible !important;
@@ -184,12 +178,10 @@ const dificuldade_label: Record<string, string> = {
   }
   .botao_ver:hover { background: #14532d; }
 
-  /* ── cores de nível (compartilhadas) ── */
   .nivel_iniciante     { background: #dcfce7; color: #166534; }
   .nivel_intermediario { background: #fef3c7; color: #92400e; }
   .nivel_avancado      { background: #fee2e2; color: #991b1b; }
 
-  /* ── corpo ── */
   .card_corpo {
     padding: 20px 24px;
     display: flex;
@@ -236,5 +228,15 @@ const dificuldade_label: Record<string, string> = {
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  @media (max-width: 640px) {
+    .card_lista {
+      flex-direction: column;
+    }
+    .lista_imagem_wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
   }
 </style>

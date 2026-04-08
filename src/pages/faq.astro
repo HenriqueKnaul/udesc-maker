@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout titulo_pagina="Perguntas Frequentes" pagina_ativa="faq">
+  <div class="pagina_estatica">
+    <div class="cabecalho_simples">
+      <h1>Perguntas Frequentes</h1>
+      <p>Tire suas dúvidas sobre o funcionamento da plataforma.</p>
+    </div>
+    
+    <div class="conteudo_texto faq_lista">
+      <div class="faq_item">
+        <h2>Quem pode enviar projetos?</h2>
+        <p>Qualquer aluno, professor ou membro da comunidade externa pode enviar projetos. Basta ter o projeto documentado e seguir nossas diretrizes de segurança.</p>
+      </div>
+
+      <div class="faq_item">
+        <h2>Como eu envio meu projeto?</h2>
+        <p>A submissão é feita através de um Pull Request no nosso repositório oficial no GitHub. Você precisa criar um arquivo Markdown com os metadados do projeto e colocar as imagens na pasta pública.</p>
+      </div>
+
+      <div class="faq_item">
+        <h2>É gratuito?</h2>
+        <p>Sim! A plataforma UDESC Maker é 100% gratuita, de código aberto e mantida colaborativamente pela comunidade acadêmica.</p>
+      </div>
+
+      <div class="faq_item">
+        <h2>Preciso saber programar para usar o site?</h2>
+        <p>Para ler e replicar os projetos, não. Para enviar um projeto novo, você precisa apenas de conhecimentos muito básicos da linguagem de marcação Markdown.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pagina_estatica {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  .cabecalho_simples {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .cabecalho_simples h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+  .cabecalho_simples p {
+    font-size: 18px;
+    color: #6b7280;
+  }
+  .conteudo_texto {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+  }
+  .faq_item {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .faq_item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .faq_item h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  .faq_item p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #6b7280;
+    margin: 0;
+  }
+</style>

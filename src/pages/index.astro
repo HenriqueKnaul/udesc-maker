@@ -3,16 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CardProjeto from "../components/CardProjeto.astro";
 import { getCollection } from "astro:content";
 
-// busca todos os projetos do markdown
 const todos_projetos = await getCollection("projects");
-
-// quantos projetos mostrar de inicio
 const QUANTIDADE_INICIAL = 3;
 ---
 
 <BaseLayout titulo_pagina="UDESC MAKER" pagina_ativa="inicio">
 
-  <!-- HERO: banner principal com foto de fundo -->
   <section class="hero">
     <div class="hero_escurecimento"></div>
     <div class="hero_conteudo">
@@ -26,7 +22,6 @@ const QUANTIDADE_INICIAL = 3;
     </div>
   </section>
 
-  <!-- PROJETOS EM DESTAQUE -->
   <section class="destaque">
     <div class="destaque_cabecalho">
       <div>
@@ -192,4 +187,15 @@ const QUANTIDADE_INICIAL = 3;
     cursor: pointer;
   }
   .botao_carregar:hover { background: #14532d; }
+
+  @media (max-width: 768px) {
+    .hero_conteudo { padding: 40px 24px; }
+    .hero_conteudo h1 { font-size: 36px; }
+    .destaque { padding: 40px 24px; }
+    .destaque_cabecalho { 
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 16px; 
+    }
+  }
 </style>

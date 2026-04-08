@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout titulo_pagina="Sobre o Projeto" pagina_ativa="sobre">
+  <div class="pagina_estatica">
+    <div class="cabecalho_simples">
+      <h1>Sobre o Projeto</h1>
+      <p>Conheça a iniciativa por trás da plataforma UDESC Maker.</p>
+    </div>
+    
+    <div class="conteudo_texto">
+      <h2>Nossa Missão</h2>
+      <p>A Plataforma UDESC Maker nasceu com o objetivo de centralizar e democratizar o acesso ao conhecimento técnico, eletrônico e de programação dentro da universidade e para toda a comunidade.</p>
+      
+      <h2>O que fazemos</h2>
+      <p>Acreditamos que a melhor forma de aprender é fazendo. Por isso, construímos este espaço colaborativo onde alunos, professores e entusiastas podem compartilhar tutoriais passo a passo, códigos-fonte e moldes 3D de projetos reais construídos na prática.</p>
+      
+      <h2>Código Aberto</h2>
+      <p>Esta plataforma é um projeto de código aberto. Toda a infraestrutura foi desenvolvida para ser rápida, acessível e facilmente atualizável através de arquivos Markdown, permitindo que qualquer pessoa contribua sem precisar de conhecimentos avançados em web design.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pagina_estatica {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  .cabecalho_simples {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .cabecalho_simples h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+  .cabecalho_simples p {
+    font-size: 18px;
+    color: #6b7280;
+  }
+  .conteudo_texto {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+  }
+  .conteudo_texto h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #166534;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+  .conteudo_texto h2:first-child {
+    margin-top: 0;
+  }
+  .conteudo_texto p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #374151;
+    margin-bottom: 16px;
+  }
+</style>
