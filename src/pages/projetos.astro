@@ -54,7 +54,6 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     <div class="container">
       <p id="busca_contagem" class="busca_contagem"></p>
 
-      <!-- grid: auto-fill com min 280px — todos os itens mesma altura via subgrid/align-stretch -->
       <div id="projetos_grid" class="projetos_grid">
         {todos_projetos.map((projeto) => (
           <div
@@ -65,6 +64,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
             data-categorias={projeto.data.categoria.join(',')}
             data-dificuldade={projeto.data.dificuldade}
             data-idade={projeto.data.idade_minima}
+            data-duracao={projeto.data.duracao}
           >
             <CardProjeto
               slug={projeto.id}
@@ -143,7 +143,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
 
       <hr class="divisor" />
 
-      <!-- dificuldade — valores batem com o z.enum do config.ts -->
+      <!-- dificuldade -->
       <fieldset class="filtro_grupo">
         <legend class="filtro_legenda">Dificuldade</legend>
         <div class="checkbox_stack">
@@ -156,6 +156,27 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
               <input type="checkbox" class="filtro_check" data-filtro="dificuldade" value={n.value} />
               <span class="checkmark"></span>
               <span class={`nivel_badge ${n.cls}`}>{n.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <hr class="divisor" />
+
+      <!-- duração — novo filtro -->
+      <fieldset class="filtro_grupo">
+        <legend class="filtro_legenda">Duração</legend>
+        <div class="checkbox_stack">
+          {[
+            { label: 'Até 59 min',  value: '0-59'    },
+            { label: '1h - 2h',  value: '60-120'  },
+            { label: '2h - 5h',     value: '120-300' },
+            { label: 'Mais de 5h',  value: '300-999' },
+          ].map(f => (
+            <label class="checkbox_label">
+              <input type="checkbox" class="filtro_check" data-filtro="duracao" value={f.value} />
+              <span class="checkmark"></span>
+              {f.label}
             </label>
           ))}
         </div>
@@ -176,6 +197,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     categorias: new Set<string>(),
     idades: new Set<string>(),
     dificuldades: new Set<string>(),
+    duracoes: new Set<string>(),
   };
 
   const busca_input    = document.getElementById('busca_input')     as HTMLInputElement;
@@ -191,6 +213,22 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
   const estado_vazio   = document.getElementById('estado_vazio')    as HTMLDivElement;
   const itens          = document.querySelectorAll<HTMLDivElement>('.projeto_item');
   const checks         = document.querySelectorAll<HTMLInputElement>('.filtro_check');
+
+  // converte string de duração para minutos
+  function parseDuracao(duracao: string): number {
+    const nums = duracao.match(/\d+/g);
+    if (!nums) return 0;
+    const valores = nums.map(Number);
+    const maior = Math.max(...valores);
+    if (duracao.toLowerCase().includes('hora') || duracao.toLowerCase().includes(' h')) {
+      return maior * 60;
+    }
+    if (duracao.toLowerCase().includes('min')) {
+      return maior;
+    }
+    // fallback: se tiver "a" ou "-" entre dois números, pega o maior
+    return maior * 60;
+  }
 
   // drawer
   function abrirDrawer() {
@@ -224,6 +262,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
       const categorias  = item.dataset.categorias?.split(',') ?? [];
       const dificuldade = item.dataset.dificuldade ?? '';
       const idade       = parseInt(item.dataset.idade ?? '0');
+      const duracao_min = parseDuracao(item.dataset.duracao ?? '');
 
       const q = estado.query;
       const ok_query = !q || titulo.includes(q) || resumo.includes(q) || tags.includes(q);
@@ -239,7 +278,13 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
 
       const ok_dif = estado.dificuldades.size === 0 || estado.dificuldades.has(dificuldade);
 
-      const mostrar = ok_query && ok_cat && ok_idade && ok_dif;
+      const ok_dur = estado.duracoes.size === 0 ||
+        [...estado.duracoes].some(faixa => {
+          const [min, max] = faixa.split('-').map(Number);
+          return duracao_min >= min && duracao_min <= max;
+        });
+
+      const mostrar = ok_query && ok_cat && ok_idade && ok_dif && ok_dur;
       item.classList.toggle('oculto', !mostrar);
       if (mostrar) visiveis++;
     });
@@ -248,7 +293,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
       `${visiveis} projeto${visiveis !== 1 ? 's' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
     estado_vazio.style.display = visiveis === 0 ? 'block' : 'none';
 
-    const total_filtros = estado.categorias.size + estado.idades.size + estado.dificuldades.size;
+    const total_filtros = estado.categorias.size + estado.idades.size + estado.dificuldades.size + estado.duracoes.size;
     contagem_badge.textContent = String(total_filtros);
     contagem_badge.style.display = total_filtros > 0 ? 'inline-block' : 'none';
 
@@ -262,13 +307,18 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
   const labels_dif: Record<string, string> = {
     iniciante: 'Iniciante', intermediario: 'Intermediário', avancado: 'Avançado',
   };
+  const labels_dur: Record<string, string> = {
+    '0-30': 'Até 30 min', '30-120': '30min - 2h',
+    '120-300': '2h - 5h', '300-999': 'Mais de 5h',
+  };
 
   function renderizarTags() {
     filtros_ativos.innerHTML = '';
     const todos = [
-      ...[...estado.categorias].map(v  => ({ label: v,                  set: estado.categorias,  value: v })),
+      ...[...estado.categorias].map(v  => ({ label: v,                   set: estado.categorias,  value: v })),
       ...[...estado.idades].map(v      => ({ label: labels_idade[v] ?? v, set: estado.idades,      value: v })),
       ...[...estado.dificuldades].map(v => ({ label: labels_dif[v] ?? v,  set: estado.dificuldades, value: v })),
+      ...[...estado.duracoes].map(v    => ({ label: labels_dur[v] ?? v,   set: estado.duracoes,    value: v })),
     ];
     todos.forEach(({ label, set, value }) => {
       const tag = document.createElement('button');
@@ -286,8 +336,9 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
 
   checks.forEach(check => {
     check.addEventListener('change', () => {
-      const set = check.dataset.filtro === 'categoria'  ? estado.categorias
-                : check.dataset.filtro === 'idade'      ? estado.idades
+      const set = check.dataset.filtro === 'categoria'   ? estado.categorias
+                : check.dataset.filtro === 'idade'       ? estado.idades
+                : check.dataset.filtro === 'duracao'     ? estado.duracoes
                 : estado.dificuldades;
       check.checked ? set.add(check.value) : set.delete(check.value);
       aplicarFiltros();
@@ -307,6 +358,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     estado.categorias.clear();
     estado.idades.clear();
     estado.dificuldades.clear();
+    estado.duracoes.clear();
     checks.forEach(c => { c.checked = false; });
     aplicarFiltros();
   }
@@ -330,7 +382,6 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     padding: 0 48px;
   }
 
-  /* hero */
   .hero_busca {
     background: #f0fdf4;
     padding: 48px 0 36px;
@@ -348,7 +399,6 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     line-height: 1.6;
   }
 
-  /* barra */
   .barra_secao {
     padding: 24px 0 0;
     background: #fff;
@@ -436,27 +486,19 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
   }
   .tag_ativa:hover { background: #bbf7d0; }
 
-  /* resultados */
   .resultados_secao { padding: 28px 0 64px; background: #fff; }
   .busca_contagem { font-size: 13px; color: #6b7280; margin-bottom: 20px; }
 
-  /* grid com alinhamento de altura via subgrid */
   .projetos_grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    /* align-items: stretch faz cada célula ocupar a altura máxima da linha */
     align-items: stretch;
     gap: 20px;
   }
 
-  .projeto_item {
-    /* display: flex + height: 100% propaga a altura para o CardProjeto dentro */
-    display: flex;
-  }
-
+  .projeto_item { display: flex; }
   .projeto_item.oculto { display: none; }
 
-  /* estado vazio */
   .estado_vazio { text-align: center; padding: 64px 16px; }
   .vazio_icone { font-size: 40px; margin-bottom: 12px; }
   .vazio_titulo { font-size: 17px; font-weight: 600; color: #374151; margin-bottom: 6px; }
@@ -474,7 +516,6 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
   }
   .botao_limpar_tudo:hover { background: #14532d; }
 
-  /* overlay */
   .filtros_overlay {
     display: none;
     position: fixed;
@@ -484,7 +525,6 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
   }
   .filtros_overlay.aberto { display: block; }
 
-  /* drawer */
   .filtros_drawer {
     position: fixed;
     top: 0;
@@ -593,7 +633,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     font-family: inherit;
     transition: border-color 0.15s, background 0.15s;
   }
-  .botao_limpar:hover { border-color: #9ca3af; background: #f9fafb; }
+  .botao_limpar:hover { border-color: #991b1b; background: #f9fafb; }
 
   @media (max-width: 640px) {
     .container { padding: 0 24px; }
