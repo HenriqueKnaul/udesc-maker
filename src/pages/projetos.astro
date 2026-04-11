@@ -308,7 +308,7 @@ const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categori
     iniciante: 'Iniciante', intermediario: 'Intermediário', avancado: 'Avançado',
   };
   const labels_dur: Record<string, string> = {
-    '0-30': 'Até 30 min', '30-120': '30min - 2h',
+    '0-59': 'Até 59 min', '60-120': '1h - 2h',
     '120-300': '2h - 5h', '300-999': 'Mais de 5h',
   };
 
