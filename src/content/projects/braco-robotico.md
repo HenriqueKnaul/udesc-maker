@@ -1,12 +1,13 @@
 ---
+visivel: true
 titulo: "Braço Robótico Controlado por Joystick"
+autor: "Equipe Maker"
 resumo: "Construa um braço robótico controlado manualmente usando joystick e Arduino."
 idade_minima: 14
 duracao: "3 a 5 horas"
-autor: "Equipe Maker"
 dificuldade: "avancado"
 categoria: ["Robótica", "Arduino", "Automação"]
-thumbnail: "/braco-robotico.jpg"
+thumbnail: "/thumbnails/braco-robotico.jpg"
 tags: ["robo", "braco robotico", "servo motor", "joystick", "controle"]
 recursos:
   - nome: "Código Fonte"

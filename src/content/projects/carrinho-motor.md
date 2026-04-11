@@ -1,12 +1,13 @@
 ---
+visivel: true
 titulo: "Carrinho com Motor Simples"
+autor: "Equipe Maker UDESC"
 resumo: "Monte um carrinho que anda sozinho usando um motor."
 idade_minima: 10
 duracao: "30 minutos"
-autor: "Equipe Maker"
 dificuldade: "intermediario"
 categoria: ["Robótica", "Engenharia"]
-thumbnail: "/carrinho.jpg"
+thumbnail: "/thumbnails/carrinho.jpg"
 tags: ["carrinho", "motor", "roda"]
 recursos:
   - nome: "Esquema Elétrico"

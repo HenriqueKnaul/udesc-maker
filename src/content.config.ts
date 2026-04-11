@@ -14,6 +14,7 @@ const projetosCollection = defineCollection({
     categoria: z.array(z.string()).min(1),
     tags: z.array(z.string()).default([]),
     thumbnail: z.string().optional(),
+    visivel: z.boolean().default(true),
     
     recursos: z.array(z.object({
       nome: z.string(),

@@ -3,7 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CardProjeto from "../components/CardProjeto.astro";
 import { getCollection } from "astro:content";
 
-const todos_projetos = await getCollection("projects");
+//Adicionei a regra que se o projeto não estiver visível ele não aparece para a listagem também.
+const todos_projetos = await getCollection("projects", ({ data }) => {
+  return data.visivel === true;
+});
 
 // categorias únicas extraídas dos .md
 const todas_categorias = [...new Set(todos_projetos.flatMap(p => p.data.categoria))].sort();

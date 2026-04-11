@@ -3,7 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CardProjeto from "../components/CardProjeto.astro";
 import { getCollection } from "astro:content";
 
-const todos_projetos = await getCollection("projects");
+const todos_projetos = await getCollection("projects", ({ data }) => {
+  return data.visivel === true;
+});
+
 const QUANTIDADE_INICIAL = 3;
 ---
 
@@ -95,7 +98,7 @@ const QUANTIDADE_INICIAL = 3;
     min-height: 460px;
     display: flex;
     align-items: center;
-    background: url('/hero-bg.jpg') center/cover no-repeat;
+    background: url('/images/hero-bg.jpg') center/cover no-repeat;
     background-color: #222;
   }
   .hero_escurecimento {

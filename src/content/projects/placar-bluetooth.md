@@ -1,12 +1,12 @@
 ---
 titulo: "Placar Eletrônico de Futsal Bluetooth"
+autor: "Henrique, Guilherme e Kaique"
 resumo: "Construa um placar de LED para quadras esportivas que pode ser controlado remotamente pelo celular."
 idade_minima: 14
 duracao: "4 a 6 horas"
-autor: "Henrique, Guilherme e Kaique"
 dificuldade: "avancado"
 categoria: ["Eletrônica", "Programação", "Esportes"]
-thumbnail: "/placar-futsal.jpg"
+thumbnail: "/thumbnails/placar-futsal.jpg"
 tags: ["futsal", "bluetooth", "matriz led", "app", "esportes"]
 recursos:
   - nome: "Código Fonte (Flutter/Arduino)"

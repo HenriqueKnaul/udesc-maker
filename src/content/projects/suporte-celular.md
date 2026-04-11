@@ -1,12 +1,13 @@
 ---
+visivel: true
 titulo: "Suporte de Celular com Rolo de Papel"
+autor: "Henrique, Guilherme e Kaique"
 resumo: "Projeto teste da equipe só pra mostrar que o site tá puxando o Markdown corretamente."
 idade_minima: 5
 duracao: "2 minutos"
-autor: "Henrique, Guilherme e Kaique"
 dificuldade: "iniciante"
 categoria: ["Gambiarra", "Teste"]
-thumbnail: "/suporte-celular.jpg"
+thumbnail: "/thumbnails/suporte-celular.jpg"
 tags: ["teste", "celular", "papelao"]
 ---
 

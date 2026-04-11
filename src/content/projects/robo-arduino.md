@@ -1,12 +1,13 @@
 ---
+visivel: true
 titulo: "Robô Seguidor de Linha com Arduino"
+autor: "Equipe Maker"
 resumo: "Construa um robô que segue uma linha automaticamente usando sensores e Arduino."
 idade_minima: 14
 duracao: "2 a 4 horas"
-autor: "Equipe Maker"
 dificuldade: "avancado"
 categoria: ["Robótica", "Arduino", "Automação"]
-thumbnail: "/robo-linha.jpg"
+thumbnail: "/thumbnails/robo-linha.jpg"
 tags: ["arduino", "robo", "sensor", "linha", "automacao"]
 recursos:
   - nome: "Código Fonte (GitHub)"
