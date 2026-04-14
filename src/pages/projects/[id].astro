@@ -644,4 +644,34 @@ Código novo
     display: block; 
   }
 
+  /*Adicionando responsividade no projeto_hero afimn de não bugar a imagem.*/
+  @media (max-width: 640px) {
+    .topbar {
+      padding: 12px 20px;
+    }
+
+    .pagina_wrap {
+      padding: 24px 16px 48px;
+    }
+
+    .projeto_hero {
+      grid-template-columns: 1fr;
+    }
+
+    .projeto_imagem_container {
+      order: -1;
+    }
+
+    .projeto_meta {
+      padding: 16px 0 0 0;
+    }
+
+    .prose_wrapper :global(ul) {
+      grid-template-columns: 1fr;
+    }
+
+    .recursos_grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
