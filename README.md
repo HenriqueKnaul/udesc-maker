@@ -97,11 +97,7 @@ npm run preview
 | `dificuldade` | ✅ | `iniciante`, `intermediario` ou `avancado` |
 | `categoria` | ✅ | Lista (ex: `["Eletrônica", "Arduino"]`) |
 | `thumbnail` | ❌ | Caminho da imagem de capa |
-| `tags` | ❌ | Lista de palavras-chave |
+| `tags` | ✅ | Lista de palavras-chave |
 | `recursos` | ❌ | Lista de arquivos ou links externos |
 
 ---
-
-## 📬 Contato
-
-maker@udesc.br
